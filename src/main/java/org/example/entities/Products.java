@@ -14,7 +14,6 @@ import java.io.Serializable;
 @Entity
 public class Products implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public   Long id;
