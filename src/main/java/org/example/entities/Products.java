@@ -19,6 +19,7 @@ public class Products implements Serializable {
     public   Long id;
     @Column(name="pname")
     public String pName;
+
     public String category;
 
     @Column(name="isavailable")
