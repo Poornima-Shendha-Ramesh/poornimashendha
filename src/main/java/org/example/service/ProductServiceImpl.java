@@ -1,10 +1,9 @@
 package org.example.service;
 
-import org.aspectj.weaver.ast.Var;
 import org.example.Exception.ProductsException;
 import org.example.entities.Products;
 
-import org.example.models.ProductsReq;
+import org.example.models.ProductsReqDTO;
 import org.example.repository.ProductRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +19,16 @@ public class ProductServiceImpl implements ProductService{
    private ProductRepository productRepo;
 
     @Override
-    public void saveProducts(ProductsReq productsRequest) {
+    public void saveProducts(ProductsReqDTO productsRequest) {
         Products products = new Products();
         BeanUtils.copyProperties(productsRequest,products);
         productRepo.save(products);
     }
 
     @Override
-    public ProductsReq fetchProducts(Long id) throws ProductsException {
-        ProductsReq products = new ProductsReq();
-try{
+    public ProductsReqDTO fetchProducts(Long id) throws ProductsException {
+        ProductsReqDTO products = new ProductsReqDTO();
+  try{
     var prod =    productRepo.findById(id).get();
     BeanUtils.copyProperties(prod,products);
 
@@ -40,9 +39,9 @@ throw new ProductsException(e.getMessage());
     }
 
     @Override
-    public void saveProductList(List<ProductsReq> productList) {
+    public void saveProductList(List<ProductsReqDTO> productList) {
         List<Products> productsList =  new ArrayList<>();
-        for(ProductsReq product : productList){
+        for(ProductsReqDTO product : productList){
             Products products= new Products();
             BeanUtils.copyProperties(product,products);
             productsList.add(products);
@@ -52,11 +51,11 @@ throw new ProductsException(e.getMessage());
     }
 
     @Override
-    public List<ProductsReq> fetchAllProducts() {
-        List<ProductsReq> productsListResp =  new ArrayList<>();
+    public List<ProductsReqDTO> fetchAllProducts() {
+        List<ProductsReqDTO> productsListResp =  new ArrayList<>();
         List<Products>  productsList = productRepo.findAll();
         for(Products product : productsList){
-            ProductsReq products= new ProductsReq();
+            ProductsReqDTO products= new ProductsReqDTO();
             BeanUtils.copyProperties(product,products);
             productsListResp.add(products);
         }

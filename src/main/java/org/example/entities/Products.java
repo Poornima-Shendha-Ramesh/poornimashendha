@@ -1,13 +1,13 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -15,15 +15,22 @@ import java.io.Serializable;
 public class Products implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    public   Long id;
-    @Column(name="pname")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="product_id")
+    public   Long productId;
+
+    @Column(name="product_name")
     public String pName;
 
     public String category;
 
-    @Column(name="isavailable")
+    @Column(name="is_available")
     public  boolean isAvailable;
 
+    public int cost;
+
+
+@OneToMany(mappedBy = "products")
+    public List<Orders> ordersList;
 
 }
